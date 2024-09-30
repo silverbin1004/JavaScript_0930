@@ -1,5 +1,5 @@
 // 1. JSON 직렬화와 undefined 처리
-// -> undefined를 반환하면 그 속성은 JSON 문자열 결과에 포함되지 않는다.
+// -> 무시되면서 그 속성은 JSON 문자열 결과에 포함되지 않는다.
 
 // 2. 배열 내의 undefined 값 처리
 // -> 배열 내 undefined가 있을 경우 이 값은 null로 변환된다.
@@ -8,10 +8,10 @@
 // -> 문자열
 
 // 4. Date 객체의 복원
-// -> 2024-09-30T04:30:20.420Z
+// -> "2024-09-30T04:30:20.420Z"
 
 // 5. JSON에서 지원하지 않는 데이터 타입
-// -> undefined, Symbol
+// -> undefined, Symbol, function 등
 
 // 6. 얕은 복사와 깊은 복사의 차이점
 // -> 얕은 복사는 배열의 1차원 요소들만 복사하고, 깊은 복사는 배열 내의 중첩 배열이나 객체까지 모두 복사한다.
@@ -31,27 +31,19 @@
 //       const shallowCopy = Object.assign({},originalObject);
 
 // 9. 깊은 복사의 필요성
-// -> let arr : any[] = [];
-//    let crr : any[] = arr.slice();
-//    crr.push(2);
-//    console.log(Arr === arr);
-//    console.log(arr);
-//    console.log(crr);
+// -> 복사본을 단독적으로 관리해야 하는 경우 필요하다.
 
 // 10. 깊은 복사 구현 방법
-// -> 깊은 복사 라이브러리 사용
-//    const _ = require('lodash');
-//    const originalObject = {a: 1, b: { c: 2}};
-//    const deepCopy = _.cloneDeep(originalObject);
+// -> loadsh 라이브러리에서 cloneDeep사용 또는 직접 재귀 함수 사용
 
 // 11. Object.assign()의 한계
-// -> 객체 내부의 객체는 복사가 되지 않는다.
+// -> 수정 시 원본에도 영향이 간다.
 
 // 12. 배열 복사 시의 spread 연산자
 // -> 스프레드 연산을 통한 복사는 얕은 복사이기 때문에 원본 데이터나 복사된 데이터 중 하나를 수정하게 될 경우 다른 쪽에도 영향을 미친다. 
 
-13. 재귀를 통한 깊은 복사
-// -> 
+// 13. 재귀를 통한 깊은 복사
+// -> 재귀함수는 자신의 로직을 내부적으로 반복하다가, 일정한 조건이 만족되면 함수를 이탈하여 결과를 도출합니다.
 
 // 14. JSON.stringify()의 함수 처리
 // -> 무시한다.
@@ -66,16 +58,16 @@
 // console.log(copy);
 
 // 16. slice()와 얕은 복사
-// -> slice()는 얕은 복사를 수행할 때 이용되기 때문에 중첩 배열이 있는 경우 중첩 배열까지 그대로 출력된다.
+// -> slick()는 얕은 복사이기 때문에 수정 시 원본 배열에도 영향을 미친다.
 
 // 17. JSON.parse()의 반환 값
-// -> a:1, b:true, c: "hello"
+// -> {a:1, b:true, c: "hello"}
 
-18. 깊은 복사 후 참조 확인
-// ->
+// 18. 깊은 복사 후 참조 확인
+// -> 깊은 복사를 하면 독립적인 배열이 된다.
 
-19. Symbol 타입의 직렬화
-// ->
+// 19. Symbol 타입의 직렬화
+// -> 무시한다.
 
-20. JSON.stringify()의 순환 참조 문제
-// ->
+// 20. JSON.stringify()의 순환 참조 문제
+// -> 에러 발생
